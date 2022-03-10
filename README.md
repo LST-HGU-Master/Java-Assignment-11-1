@@ -1,14 +1,40 @@
-# Autograding Example: Java
-This example project is written in Java, and tested with Gradle/JUnit.
+# 課題 11-1: カプセル化
 
-### The assignment
-The tests are currently failing because of an output mismatch. Fixing the `System.out.println` in the main method will make the tests green.
+### 課題の説明
+以下の勇者クラスをカプセル化し、実行結果が実行例と同じになるようにmainメソッドを修正しなさい。
 
-### Setup command
-N/A
+### 勇者クラス
+```java
+public class Hero
+{
+    String name = "工太";
+    int hp=100;
 
-### Run command
-`gradle test`
+    public void attack(Slime m) //戦う
+    {
+        System.out.println(this.name + "はスライム" + m.suffix + "に攻撃した！");
+        System.out.println("敵に５ポイントのダメージをあたえた！");
+        m.hp -= 5;
+    }
+}
+```
 
-### Notes
-- The JDK is installed on GitHub Actions machines, so you're also able to directly invoke `javac`, `java`, or any other CLI command included in the JDK. 
+### ProgB1.java
+```java
+public class ProgB1 {
+
+	public static void main(String[] args) {
+		Hero h = new Hero();
+		h.name = "太郎";
+		h.hp = 100;
+
+		System.out.println("勇者" + h.name + " (HP:" + h.hp + ") が誕生した!");
+	}
+
+}
+```
+
+### 実行例
+```
+勇者太郎 (HP:100) が誕生した!
+```
