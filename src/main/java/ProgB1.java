@@ -5,7 +5,7 @@ public class ProgB1 {
         h.name = "太郎";
         h.hp = 100;
 
-        System.out.println("勇者" + h.name + " (HP:" + h.hp + ") が誕生した!");
+        System.out.println("勇者" + h.name + " (HP:" + h.hp + ") が誕生した！");
     }
 
 }
