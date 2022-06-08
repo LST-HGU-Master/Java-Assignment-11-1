@@ -3,23 +3,21 @@
 ### 課題の説明
 以下の勇者クラスをカプセル化し、実行結果が実行例と同じになるようにmainメソッドを修正しなさい。
 
-### 勇者クラス
+### 勇者クラス（カプセル化を行う）
 ```java
 public class Hero
 {
-    String name = "工太";
-    int hp=100;
+    String name = "??";
+    int hp = 0;
 
-    public void attack(Slime m) //戦う
+    public void run()
     {
-        System.out.println(this.name + "はスライム" + m.suffix + "に攻撃した！");
-        System.out.println("敵に５ポイントのダメージをあたえた！");
-        m.hp -= 5;
+        System.out.println(this.name + "は逃げ出した！");
     }
 }
 ```
 
-### ProgB1.java
+### ProgB1クラス（Heroクラスのカプセル化後も同様の結果が得られるように変更する）
 ```java
 public class ProgB1 {
 
@@ -28,7 +26,7 @@ public class ProgB1 {
         h.name = "太郎";
         h.hp = 100;
 
-        System.out.println("勇者" + h.name + " (HP:" + h.hp + ") が誕生した!");
+        System.out.println("勇者" + h.name + " (HP:" + h.hp + ") が誕生した！");
     }
 
 }
@@ -36,5 +34,5 @@ public class ProgB1 {
 
 ### 実行例
 ```
-勇者太郎 (HP:100) が誕生した!
+勇者太郎 (HP:100) が誕生した！
 ```
