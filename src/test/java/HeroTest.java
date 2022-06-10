@@ -5,7 +5,9 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 
 import static org.junit.jupiter.api.Assertions.*;
-
+/**
+ * @version (20220608)
+ */
 public class HeroTest {
 
     @Test
@@ -16,55 +18,113 @@ public class HeroTest {
             Field name = h.getClass().getDeclaredField("name");
             Field hp = h.getClass().getDeclaredField("hp");
 
-            assertEquals(Modifier.PRIVATE, name.getModifiers());
-            assertEquals(Modifier.PRIVATE, hp.getModifiers());
+            assertEquals(Modifier.PRIVATE, name.getModifiers(),"Heroクラスのフィールドnameがprivate宣言されていません!");
+            assertEquals(Modifier.PRIVATE, hp.getModifiers(),"hpがprivate宣言されていません!");
 
-        } catch (Exception e) {
-            // なにかしら例外がでたらfailにする
-            fail();
+        } catch (NoSuchFieldException e) {
+            fail("Heroクラスのフィールドとして name または hp が定義されていません!");
         }
     }
 
     @Test
-    public void testSetter() {
+    public void testSetName() {
         try{
             // action
             Hero h = new Hero();
             Method setName = h.getClass().getMethod("setName", String.class);
-            Method setHp = h.getClass().getMethod("setHp", int.class);
+            //Method setHp = h.getClass().getMethod("setHp", int.class);
             setName.invoke(h, "二郎");
-            setHp.invoke(h, 90);
+            //setHp.invoke(h, 90);
 
             Field name = h.getClass().getDeclaredField("name");
-            Field hp = h.getClass().getDeclaredField("hp");
+            //Field hp = h.getClass().getDeclaredField("hp");
 
             name.setAccessible(true);
-            hp.setAccessible(true);
+            //hp.setAccessible(true);
 
-            assertEquals("二郎", name.get(h));
-            assertEquals(90, hp.get(h));
-
-        } catch (Exception e) {
-            // なにかしら例外がでたらfailにする
-            fail();
+            assertEquals("二郎", name.get(h), "setName()での処理が不正です!");
+            //assertEquals(90, hp.get(h),"?90?");
+        } catch (NoSuchFieldException nsfe) {
+            fail("Heroクラスにフィールド name が定義されていません! ");
+        } catch (NoSuchMethodException nsme) {
+            fail("HeroクラスにsetName(String 変数名)が定義されていない、もしくはpublic宣言されていません! ");
+        } catch (IllegalAccessException iae) {
+            // クラスが public でなかったり、別のパッケージに入っていたりするために、実行中のメソッドが指定されたクラスの定義にアクセスできない場合にスローされる例外
+            fail("HeroクラスのsetName()がpublic宣言されていません! ");
+        } catch (java.lang.reflect.InvocationTargetException ite) {
+            fail("setName()内で例外が発生しました"); // 教員対応
         }
     }
 
     @Test
-    public void testGetter() {
+    public void testSetHp() {
+        try{
+            // action
+            Hero h = new Hero();
+            //Method setName = h.getClass().getMethod("setName", String.class);
+            Method setHp = h.getClass().getMethod("setHp", int.class);
+            //setName.invoke(h, "二郎");
+            setHp.invoke(h, 90);
+
+            //Field name = h.getClass().getDeclaredField("name");
+            Field hp = h.getClass().getDeclaredField("hp");
+
+            //name.setAccessible(true);
+            hp.setAccessible(true);
+
+            //assertEquals("二郎", name.get(h));
+            assertEquals(90, hp.get(h),"setHp()での処理が不正です!");
+            
+        } catch (NoSuchFieldException nsfe) {
+            fail("Heroクラスにフィールド hp が定義されていません! ");
+        } catch (NoSuchMethodException nsme) {
+            fail("HeroクラスにsetHp(int 変数名)が定義されていない、もしくはpublic宣言されていません! ");
+        } catch (IllegalAccessException iae) {
+            // クラスが public でなかったり、別のパッケージに入っていたりするために、実行中のメソッドが指定されたクラスの定義にアクセスできない場合にスローされる例外
+            fail("HeroクラスのsetHp()がpublic宣言されていません! ");
+        } catch (java.lang.reflect.InvocationTargetException ite) {
+            fail("setHp()内で例外が発生しました"); // 教員対応
+
+        }
+    }
+
+    @Test
+    public void testGetName() {
         try{
             // action
             Hero h = new Hero();
             Method getName = h.getClass().getMethod("getName");
-            Method getHp = h.getClass().getMethod("getHp");
+            //Method getHp = h.getClass().getMethod("getHp");
 
-            assertEquals("??", getName.invoke(h));
-            assertEquals(0, getHp.invoke(h));
+            assertEquals("??", getName.invoke(h),"getName()の戻り値が不正です!");
+            //assertEquals(0, getHp.invoke(h),"assdffg");
 
-        } catch (Exception e) {
-            // なにかしら例外がでたらfailにする
-            fail();
+        } catch (NoSuchMethodException nsme) {
+            fail("HeroクラスにgetName()が定義されていない、もしくはpublic宣言されていません! ");
+        } catch (IllegalAccessException iae) {
+            fail("HeroクラスのgetName()がpublic宣言されていません! ");
+        } catch (java.lang.reflect.InvocationTargetException ite) {
+            fail("getName()内で例外が発生しました"); // 教員対応
         }
     }
 
+    @Test
+    public void testGetHp() {
+        try{
+            // action
+            Hero h = new Hero();
+            //Method getName = h.getClass().getMethod("getName");
+            Method getHp = h.getClass().getMethod("getHp");
+
+            //assertEquals("??", getName.invoke(h));
+            assertEquals(0, getHp.invoke(h),"Hero.GetHpの戻り値が不正です!");
+
+        } catch (NoSuchMethodException nsme) {
+            fail("HeroクラスにgetHp()が定義されていない、もしくはpublic宣言されていません! ");
+        } catch (IllegalAccessException iae) {
+            fail("HeroクラスのgetHp()がpublic宣言されていません! ");
+        } catch (java.lang.reflect.InvocationTargetException ite) {
+            fail("getHp()内で例外が発生しました"); // 教員対応
+        }
+    }
 }
