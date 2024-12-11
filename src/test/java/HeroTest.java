@@ -6,6 +6,7 @@ import java.lang.reflect.Modifier;
 
 import static org.junit.jupiter.api.Assertions.*;
 /**
+ * @version (2024Dec11) method名が見つからない例外発生でのエラーメッセージの修正
  * @version (20220608)
  */
 public class HeroTest {
@@ -20,7 +21,6 @@ public class HeroTest {
 
             assertEquals(Modifier.PRIVATE, name.getModifiers(),"Heroクラスのフィールドnameがprivate宣言されていません!");
             assertEquals(Modifier.PRIVATE, hp.getModifiers(),"hpがprivate宣言されていません!");
-
         } catch (NoSuchFieldException e) {
             fail("Heroクラスのフィールドとして name または hp が定義されていません!");
         }
@@ -46,8 +46,8 @@ public class HeroTest {
             //assertEquals(90, hp.get(h),"?90?");
         } catch (NoSuchFieldException nsfe) {
             fail("Heroクラスにフィールド name が定義されていません! ");
-        } catch (NoSuchMethodException nsme) {
-            fail("HeroクラスにsetName(String 変数名)が定義されていない、もしくはpublic宣言されていません! ");
+        } catch (NoSuchMethodException nsme) { // 2024Dec11 （大文字小文字も確認） を追加
+            fail("HeroクラスにsetName(String 変数名)が定義されていない（大文字小文字も確認）、もしくはpublic宣言されていません! ");
         } catch (IllegalAccessException iae) {
             // クラスが public でなかったり、別のパッケージに入っていたりするために、実行中のメソッドが指定されたクラスの定義にアクセスできない場合にスローされる例外
             fail("HeroクラスのsetName()がpublic宣言されていません! ");
@@ -74,17 +74,15 @@ public class HeroTest {
 
             //assertEquals("二郎", name.get(h));
             assertEquals(90, hp.get(h),"setHp()での処理が不正です!");
-            
         } catch (NoSuchFieldException nsfe) {
             fail("Heroクラスにフィールド hp が定義されていません! ");
-        } catch (NoSuchMethodException nsme) {
-            fail("HeroクラスにsetHp(int 変数名)が定義されていない、もしくはpublic宣言されていません! ");
+        } catch (NoSuchMethodException nsme) { // 2024Dec11 （大文字小文字も確認）を追加
+            fail("HeroクラスにsetHp(int 変数名)が定義されていない（大文字小文字も確認）、もしくはpublic宣言されていません! ");
         } catch (IllegalAccessException iae) {
             // クラスが public でなかったり、別のパッケージに入っていたりするために、実行中のメソッドが指定されたクラスの定義にアクセスできない場合にスローされる例外
             fail("HeroクラスのsetHp()がpublic宣言されていません! ");
         } catch (java.lang.reflect.InvocationTargetException ite) {
             fail("setHp()内で例外が発生しました"); // 教員対応
-
         }
     }
 
@@ -99,8 +97,8 @@ public class HeroTest {
             assertEquals("??", getName.invoke(h),"getName()の戻り値が不正です!");
             //assertEquals(0, getHp.invoke(h),"assdffg");
 
-        } catch (NoSuchMethodException nsme) {
-            fail("HeroクラスにgetName()が定義されていない、もしくはpublic宣言されていません! ");
+        } catch (NoSuchMethodException nsme) { // 2024Dec11 （大文字小文字も確認）を追加
+            fail("HeroクラスにgetName()が定義されていない（大文字小文字も確認）、もしくはpublic宣言されていません! ");
         } catch (IllegalAccessException iae) {
             fail("HeroクラスのgetName()がpublic宣言されていません! ");
         } catch (java.lang.reflect.InvocationTargetException ite) {
@@ -119,8 +117,8 @@ public class HeroTest {
             //assertEquals("??", getName.invoke(h));
             assertEquals(0, getHp.invoke(h),"Hero.GetHpの戻り値が不正です!");
 
-        } catch (NoSuchMethodException nsme) {
-            fail("HeroクラスにgetHp()が定義されていない、もしくはpublic宣言されていません! ");
+        } catch (NoSuchMethodException nsme) { // 2024Dec11 （大文字小文字も確認）を追加
+            fail("HeroクラスにgetHp()が定義されていない（大文字小文字も確認）、もしくはpublic宣言されていません! ");
         } catch (IllegalAccessException iae) {
             fail("HeroクラスのgetHp()がpublic宣言されていません! ");
         } catch (java.lang.reflect.InvocationTargetException ite) {
